@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<script type="text/javascript" src="inc/cria_mapa.js">//funções para criar mapa e obstaculos</script>
+<script type="text/javascript" src="inc/atira.js">//funções para atirar</script>
+<script type="text/javascript" src="inc/boneco.js">//funções movimento() e para funcionar o teclado</script>
+<script type="text/javascript" src="inc/objetos.js">//funções para criar objetos e movimentalos</script>
+<script type="text/javascript" src="inc/globais.js">//funçõesglobais que são usadas em várias funções</script>
+
+<script type="text/javascript">
+
+//define variaveis globais que serão usadas em várias funções
+	
+	//var inicio_x ; //defino a posição x(left) inicial do boneco
+	//var inicio_y ; //define a posição y(top) inicial do boneco
+
+	var ta_jogando = 0;
+	
+	var mov = 5; //define quantos campos andara o boneco
+	var mov_tiro =4; //define quantos campos anda o tiro
+	var mov_objeto = 8;
+	
+	var largura_mapa = 800; //define largura do mapa 
+	var altura_mapa = 600; //define altura do mapa 
+
+	var x = 1; //define posição x(left)
+	var y = altura_mapa/2; //define posição y (top)
+
+
+	var tamanho_boneco = 40; //define tamanho do boneco (o boneco é a nave)(o boneco é um quadrado)
+
+	var tamanho_objeto = 40; //define o tamanho dos objetos(os objetos são os que o boneco pode destruir)(é um quadrado)
+		
+	var boneco; //variavel que será o boneco
+	var mapa; //variavel do mapa
+	
+	
+	var pontos =0;
+	var vidas = 3;
+	
+	
+	var conta_tiro = 0;
+	var conta_obj = 0;
+	
+//função define atributos ao carregar body
+function define(){
+
+	boneco = document.getElementById("boneco").style;  //define a variavel que muda o css do boneco
+	mapa = document.getElementById("mapa").style; //define a variavel que muda o css do mapa
+	
+	boneco.top = y+"px"; //define y(top) inicial do boneco
+	boneco.left = x+"px"; //define x(left) inicial do boneco
+	
+	boneco.width = tamanho_boneco+"px";  //define largura do boneco baseado na variavel tamanho
+	boneco.height = tamanho_boneco+"px"; //defne altura do boneco baseado na variavel tamanho
+	
+		
+	mapa.width = largura_mapa+"px";  //define a largura do mapa
+	mapa.height = altura_mapa+"px"; //define a altura do mapa	
+	
+	
+	//inicio_x = inicio_x.substring(0,(inicio_x.length - 2)); //tira os 2 ultimos digitos
+	
+	
+	cria_mapa();
+define_objetos();	
+var tempo_objeto = window.setInterval(function(){cria_objeto();}, 2000); //cria um objeto
+
+
+var tempo_jogo = window.setInterval(function(){jogando();},2000);
+
+
+}
+
+function jogando() { 
+	if (ta_jogando>25){  
+		ta_jogando=0;
+	    pause();
+	}else{
+		ta_jogando++;	
+	}
+}
+
+
+
+</script>
+<link rel="stylesheet" type="text/css" href="reset.css" />
+<style>
+#boneco{position:absolute; background:url(img/boneco.png);}
+#mapa{background:url(img/estrelas2.png); top:0px; left:0px; position:relative;}
+#pontuacao{ background:#FFF; width:70px; position:relative; text-align:center;}
+.obstaculo{background-color:#FFF; width:1px; height:1px; position:absolute;}
+.objeto{ background:url(img/obj.png); position:absolute;}
+.divtiro{background-color:#F00; width:3px; height:2px; position:absolute;}
+body{background-color:#999;}
+.centralizar{margin:auto;}
+</style>
+
+<body onload="define();">
+
+<div id="mapa" name="mapa" class="centralizar">
+	<div id="pontuacao">Pontos: <b id="pontos" style="color:#00F">0</b> Vidas: <b id="vidas" style="color:#F00">3</b></div>
+	
+    <div id="boneco" name="boneco"></div>
+</div>	
+
+</body>
+</html>
